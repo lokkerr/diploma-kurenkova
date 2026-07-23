@@ -133,9 +133,10 @@ API_URL=https://realworld.qa.guru/api
 
 | Команда           | Описание                                  |
 | ----------------- | ----------------------------------------- |
-| `npm run report`  | Открыть встроенный HTML-отчет Playwright  |
-| `npm run allureG` | Сгенерировать отчет Allure из результатов |
-| `npm run allureO` | Открыть отчет Allure в браузере           |
+| `npm run report`         | Открыть встроенный HTML-отчет Playwright                                      |
+| `npm run allureG`        | Сгенерировать обычный Allure-отчет (`allure-report/`, нужен для Telegram)     |
+| `npm run allureG:single` | Сгенерировать single-file Allure-отчет (`allure-report-single/index.html`)    |
+| `npm run allureO`        | Открыть обычный отчет Allure в браузере                                       |
 
 ---
 

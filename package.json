@@ -13,8 +13,9 @@
     "t:headed": "playwright test --headed",
     "t:debug": "npx playwright test --debug",
     "t:ui": "npx playwright test --ui",
-    "allureO": "npx allure open",
-    "allureG": "npx allure generate"
+    "allureO": "npx allure open allure-report",
+    "allureG": "npx allure generate allure-results -o allure-report --clean",
+    "allureG:single": "npx allure generate allure-results -o allure-report-single --clean --single-file"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +26,7 @@
     "@faker-js/faker": "^10.5.0",
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.1",
+    "allure-commandline": "^2.43.0",
     "allure-playwright": "^3.10.2",
     "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",

@@ -6,6 +6,7 @@ test-results/
 playwright-report/
 allure-results/
 allure-report/
+allure-report-single/
 package-lock.json
 *.env
 *.log
