@@ -71,13 +71,18 @@ jobs:
           wget https://github.com/qa-guru/allure-notifications/releases/download/v5.0.2/allure-notifications-5.0.2.jar -O notifications/allure-notifications.jar
         if: always()
 
+      - name: Сгенерировать Allure-отчёт
+        if: always()
+        run: npx allure-commandline generate allure-results -o allure-report --clean
+
       - name: Отправить уведомление в Telegram
         if: always()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: >
           java
           "-DconfigFile=notifications/config.json"
           "-Dnotifications.telegram.token=${{ secrets.TELEGRAM_BOT_TOKEN }}"
           "-Dnotifications.telegram.chat=${{ secrets.TELEGRAM_CHAT_ID }}"
-          "-Dnotifications.base.links.report=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          "-Dnotifications.base.links.build=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           -jar notifications/allure-notifications.jar
