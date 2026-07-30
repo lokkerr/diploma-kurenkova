@@ -75,14 +75,24 @@ jobs:
         if: always()
         run: npx allure-commandline generate allure-results -o allure-report --clean
 
+      - name: Добавить ссылки в конфигурацию уведомлений
+        if: always()
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          jq --arg runUrl "$RUN_URL" \
+            '.base.links.report = $runUrl |
+             .base.links.build = $runUrl' \
+            notifications/config.json > notifications/config.runtime.json
+
       - name: Отправить уведомление в Telegram
         if: always()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: >
-          java
-          "-DconfigFile=notifications/config.json"
-          "-Dnotifications.telegram.token=${{ secrets.TELEGRAM_BOT_TOKEN }}"
-          "-Dnotifications.telegram.chat=${{ secrets.TELEGRAM_CHAT_ID }}"
-          -jar notifications/allure-notifications.jar
+        run: |
+          java \
+            "-DconfigFile=notifications/config.runtime.json" \
+            "-Dnotifications.telegram.token=$TELEGRAM_BOT_TOKEN" \
+            "-Dnotifications.telegram.chat=$TELEGRAM_CHAT_ID" \
+            -jar notifications/allure-notifications.jar
