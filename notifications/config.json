@@ -1,0 +1,22 @@
+{
+  "base": {
+    "project": "RealWorldTests",
+    "environment": "GitHub Actions",
+    "comment": "CI Run",
+    "language": "ru",
+    "allureFolder": "allure-report/",
+    "allureResultsFolder": "allure-results/",
+    "enableChart": true,
+    "chart": {
+      "mode": "pie"
+    },
+    "links": {
+      "report": "",
+      "build": ""
+    }
+  },
+  "telegram": {
+    "token": "",
+    "chat": ""
+  }
+}
