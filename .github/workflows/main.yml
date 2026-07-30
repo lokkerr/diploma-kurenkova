@@ -72,5 +72,12 @@ jobs:
         if: always()
 
       - name: Отправить уведомление в Telegram
-        run: java "-DconfigFile=notifications/config.json" -jar notifications/allure-notifications.jar
         if: always()
+        run: >
+          java
+          "-DconfigFile=notifications/config.json"
+          "-Dnotifications.telegram.token=${{ secrets.TELEGRAM_BOT_TOKEN }}"
+          "-Dnotifications.telegram.chat=${{ secrets.TELEGRAM_CHAT_ID }}"
+          "-Dnotifications.base.links.report=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          "-Dnotifications.base.links.build=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          -jar notifications/allure-notifications.jar
